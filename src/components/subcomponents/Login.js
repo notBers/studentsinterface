@@ -15,6 +15,7 @@ function Login() {
         <form onSubmit={handleLogin}>
           <input
             type="text"
+            id="specialsubmit"
             placeholder="Enter identifier here"
             onChange={(e) => setIdentifier(e.target.value)}
           />
