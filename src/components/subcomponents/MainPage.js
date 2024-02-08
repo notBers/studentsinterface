@@ -71,7 +71,7 @@ function MainPage() {
       }
       
       const imagesResponse = await fetch(`http://localhost:1337/api/upload`, {
-        method: "POST",
+        method: "PUT",
         body: formData2
       });
 
