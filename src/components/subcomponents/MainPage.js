@@ -42,12 +42,6 @@ function MainPage() {
     });
   };
 
-  const handleImageChange = (e) => {
-    e.preventDefault();
-    const files = e.target.files;
-    setImages([...images, ...files]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
