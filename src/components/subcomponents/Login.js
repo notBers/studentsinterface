@@ -1,4 +1,4 @@
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../../stylesheets/Login.css";
 

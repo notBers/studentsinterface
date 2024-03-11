@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import "../../stylesheets/MainPage.css";
 
 function MainPage() {
-  let [id, setId] = useState(useParams());
+  let { id } = useParams();
+  let [gid, setGID] = useState();
   const [formData, setFormData] = useState({
     Titulo: "",
     Resumen: "",
@@ -19,14 +20,13 @@ function MainPage() {
     Bibliografia: "",
   });
 
-  const [images, setImages] = useState([]);
 
   useEffect(() => {
     const fetchData = async (PID) => {
       try {
-        const responsePID = await fetch(`https://sci-api.onrender.com/api/projects?PID=${PID}`);
+        const responsePID = await fetch(`https://sci-api.onrender.com/api/projects?filters[PID][$eq]=${PID}&populate=*`);
         const data = await responsePID.json();
-        setId(data.data[0].id);
+        setGID(data.data[0].id);
       } catch (error) {
         alert("INTERNAL ERROR, RELOAD PAGE");
       }
@@ -44,11 +44,8 @@ function MainPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(images);
-
     try {
-      const response = await fetch(`https://sci-api.onrender.com/api/projects/${id}`, {
+      const response = await fetch(`https://sci-api.onrender.com/api/projects/${gid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
