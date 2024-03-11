@@ -16,7 +16,7 @@ function Login() {
           <input
             type="text"
             id="specialsubmit"
-            placeholder="Enter identifier here"
+            placeholder="Ingresa tu identificador"
             onChange={(e) => setIdentifier(e.target.value)}
           />
           <Link className="submitlogin" to={identifier}>Submit</Link>

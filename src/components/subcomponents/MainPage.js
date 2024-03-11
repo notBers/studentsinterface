@@ -24,7 +24,7 @@ function MainPage() {
   useEffect(() => {
     const fetchData = async (PID) => {
       try {
-        const responsePID = await fetch(`http://localhost:1337/api/projects?PID=${PID}`);
+        const responsePID = await fetch(`https://sci-api.onrender.com/api/projects?PID=${PID}`);
         const data = await responsePID.json();
         setId(data.data[0].id);
       } catch (error) {
@@ -54,7 +54,7 @@ function MainPage() {
     console.log(images);
 
     try {
-      const response = await fetch(`http://localhost:1337/api/projects/${id}`, {
+      const response = await fetch(`https://sci-api.onrender.com/api/projects/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -62,23 +62,10 @@ function MainPage() {
         body: JSON.stringify({ data: formData })
       });
 
-      const formData2 = new FormData();
-      formData2.append("ref", "api::image.image");
-      formData2.append("refid", 1);
-      formData2.append("field", "content");
-      for (const file of images) {
-        formData2.append("files", file);
-      }
-      
-      const imagesResponse = await fetch(`http://localhost:1337/api/upload`, {
-        method: "PUT",
-        body: formData2
-      });
-
-      if (!imagesResponse.ok || !response.ok) {
-        throw new Error("Error uploading text or images. Please try again.");
+      if (!response.ok) {
+        throw new Error("Error subiendo tu proyecto. Asegúrate de haber introducido el identificador correcto.");
       }else{
-        alert("uploading succesful!!")
+        alert("Tu proyecto se subió correctamente")
       }
 
     } catch (error) {
@@ -105,9 +92,8 @@ function MainPage() {
       <div className="main-container">
         <form onSubmit={handleSubmit} className="custom-form">
           {renderTextAreas()}
-          <input type="file" name="imagenes" accept="image/*" multiple onChange={handleImageChange} />
           <button type="submit" className="submit-button">
-            Submit
+            Subir Proyecto
           </button>
         </form>
       </div>
